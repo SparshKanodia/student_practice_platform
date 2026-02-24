@@ -59,3 +59,14 @@ def update_user_skills(email, skills_json):
     )
     conn.commit()
     conn.close()
+
+
+def update_user_progress(email, skills_json, xp, level):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        "UPDATE users SET skills = ?, xp = ?, level = ? WHERE email = ?",
+        (skills_json, xp, level, email),
+    )
+    conn.commit()
+    conn.close()
