@@ -10,10 +10,15 @@ from fastapi.templating import Jinja2Templates
 from app.models import create_user, get_all_students, get_user_by_email
 
 router = APIRouter()
-templates = Jinja2Templates(directory="app/templates")
+templates: Jinja2Templates | None = None
 
 SESSION_COOKIE_NAME = "session"
 SESSION_SECRET = "dev-secret-key"
+
+
+def configure_templates(template_engine: Jinja2Templates) -> None:
+    global templates
+    templates = template_engine
 
 
 def create_signed_session_value(email: str) -> str:
@@ -55,7 +60,7 @@ def get_current_user(request: Request):
 def login_page(request: Request):
     return templates.TemplateResponse(
         "login.html",
-        {"request": request, "error": None},
+        {"request": request, "error": None, "show_create_user": False, "created_message": None},
     )
 
 
@@ -66,7 +71,12 @@ def login_submit(request: Request, email: str = Form(...), password: str = Form(
     if not user or user["password"] != password:
         return templates.TemplateResponse(
             "login.html",
-            {"request": request, "error": "Invalid email or password."},
+            {
+                "request": request,
+                "error": "Invalid email or password.",
+                "show_create_user": False,
+                "created_message": None,
+            },
         )
 
     if user["role"] == "student":
