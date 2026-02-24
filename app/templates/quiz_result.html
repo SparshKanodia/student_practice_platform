@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
+<h2>Quiz Result</h2>
+<p>Score: {{ score }}/10</p>
+<p>XP earned: {{ xp_earned }}</p>
+<p>Updated level: {{ level }}</p>
+<p><a href="/student">Back to dashboard</a></p>
+{% endblock %}
