@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
 
 from app import database
-from app.auth import router as auth_router
+from app.auth import configure_templates, router as auth_router
 
 app = FastAPI()
+templates = Jinja2Templates(directory="app/templates")
+configure_templates(templates)
 app.include_router(auth_router)
 
 
