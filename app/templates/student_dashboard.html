@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<h2>Student Dashboard</h2>
+<p>Welcome: {{ email }}</p>
+<p>XP: {{ xp }}</p>
+<p>Level: {{ level }}</p>
+
+<h3>Skill Scores</h3>
+<ul>
+    {% for skill_name, skill_score in skills.items() %}
+    <li>{{ skill_name }}: {{ skill_score }}</li>
+    {% endfor %}
+</ul>
+
+<p><a href="/logout">Logout</a></p>
+{% endblock %}
