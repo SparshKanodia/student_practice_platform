@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<h2>Teacher Dashboard</h2>
+<p>Welcome: {{ email }}</p>
+
+<h3>Students</h3>
+<ul>
+    {% for student in students %}
+    <li>
+        Email: {{ student.email }} |
+        Grade: {{ student.grade }} |
+        XP: {{ student.xp }} |
+        Level: {{ student.level }}
+    </li>
+    {% endfor %}
+</ul>
+
+<p><a href="/logout">Logout</a></p>
+{% endblock %}
